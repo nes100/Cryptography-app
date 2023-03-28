@@ -26,7 +26,7 @@ def key_load():
 								return key
 
 
-def encrypt(key,file):
+def encrypt(key,file,file_type):
 				"""
 				Function to encrypt a file
 				:param key: key
@@ -40,10 +40,10 @@ def encrypt(key,file):
 
 				encrypted = f.encrypt(data)
 
-				with open("encrypted_data","wb") as encrypted_file:
+				with open("encrypted_data" + file_type,"wb") as encrypted_file:
 								encrypted_file.write(encrypted)
 
-def decrypt(key,encrypted_data):
+def decrypt(key,encrypted_data,file_type):
 				"""
 				Function that decrypts an encrypted file
 				:param key: key
@@ -57,7 +57,7 @@ def decrypt(key,encrypted_data):
 
 				decrypted = f.decrypt(encrypted)
 
-				with open("decrypted_data","wb") as decrypted_file:
+				with open("decrypted_data" + file_type,"wb") as decrypted_file:
 								decrypted_file.write(decrypted)
 
 
