@@ -1,40 +1,15 @@
-from cryptography.fernet import Fernet
+import cryptographic_functions as cf
 
-# Create a key
-key = Fernet.generate_key()
+key = cf.keygen()
 
-with open("mykey.key","wb") as mykey:
-				mykey.write(key)
+cf.key_write(key)
 
-# Load key
-with open("mykey.key","rb") as mykey:
-				key = mykey.read()
+key = cf.key_load()
 
-# Initialize Fernet object
-f = Fernet(key)
+cf.encrypt(key,"data.csv")
 
-# Open data file in plaintext
-with open("data.csv","rb") as file:
-				data = file.read()
+cf.decrypt(key,"encrypted_data")
 
-# Encrypt data and store as encrypted
-encrypted = f.encrypt(data)
-
-# Write encrypted data into new csv file
-with open("encrypted_data","wb") as file:
-				file.write(encrypted)
-
-# Decryption
-# Open encrypted data file
-with open("encrypted_data","rb") as file:
-				encrypted = file.read()
-
-# Decrypt file
-decrypted = f.decrypt(encrypted)
-
-# Write decrypted file into a new csv file
-with open("decrypted_file","wb") as file:
-				file.write(decrypted)
 
 
 
