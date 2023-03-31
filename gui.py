@@ -1,6 +1,6 @@
 import cryptographic_functions as cf
 import PySimpleGUI as sg
-import csv, os
+import os
 
 working_directory = os.getcwd()
 file_types = (
