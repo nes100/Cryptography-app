@@ -23,24 +23,37 @@ window = sg.Window("Cryptography App",
 
 while True:
 				event, values = window.Read()
-				match event:
-								case "Encrypt":
+				try:
+								if event == "Encrypt":
 												key = cf.keygen()
 												cf.key_write(key)
 												key = cf.key_load()
-												value = values[0]
-												file_type = value.split(".")[1]
+												file_path = values[0]
+												file_type = file_path.split(".")[1]
 												file_type = "." + file_type
-												cf.encrypt(key,value,file_type)
-								case "Decrypt":
-												key = cf.key_load()
-												value = values[0]
-												file_type = value.split(".")[1]
-												file_type = "." + file_type
-												cf.decrypt(key,value,file_type)
 
-								case sg.WIN_CLOSED:
+												if file_type not in [".csv", ".txt"]:
+																raise ValueError("Invalid file type.")
+
+												cf.encrypt(key,file_path,file_type)
+
+
+								elif event == "Decrypt":
+												key = cf.key_load()
+												file_path = values[0]
+												file_type = file_path.split(".")[1]
+												file_type = "." + file_type
+
+												if file_type not in [".csv", ".txt"]:
+																raise ValueError("Invalid file type.")
+
+												cf.decrypt(key,file_path,file_type)
+
+								elif event == sg.WIN_CLOSED:
 												break
+
+				except Exception as e:
+								sg.PopupError(f"An error occurred: {str(e)}")
 
 window.close()
 
